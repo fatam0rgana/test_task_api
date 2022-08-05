@@ -31,13 +31,13 @@ def index():
         description = request.form["description"]
         if validate_amount(amount) and validate_currency(currency):
             data = {"amount": amount, "currency": currency, "shop_id": shop_id, "description": description,
-                "shop_order_id": str(generate_uuid())}
+                    "shop_order_id": str(generate_uuid())}
             if currency == "643":
                 data["payway"] = "advcash_rub"
                 required_keys = ("shop_id", "payway", "amount", "currency", "shop_order_id")
                 data_to_hash(data, required_keys, secret)
                 r = requests.post(url="https://core.piastrix.com/invoice/create", data=json.dumps(data),
-                              headers={"Content-Type": "application/json"})
+                                  headers={"Content-Type": "application/json"})
                 if r.json()['data'] and r.json()['result']:
                     redirect_link = r.json()['data']['url']
                 else:
@@ -49,7 +49,7 @@ def index():
                 required_keys = ("shop_amount", "shop_currency", "shop_id", "shop_order_id", "payer_currency")
                 data_to_hash(data, required_keys, secret)
                 r = requests.post(url="https://core.piastrix.com/bill/create", data=json.dumps(data),
-                              headers={"Content-Type": "application/json"})
+                                  headers={"Content-Type": "application/json"})
                 if r.json()['data'] and r.json()['result']:
                     redirect_link = r.json()['data']['url']
                 else:
@@ -58,9 +58,10 @@ def index():
                 required_keys = ("amount", "currency", "shop_id", "shop_order_id")
                 data_to_hash(data, required_keys, secret)
                 redirect_link = f"/eur?amount={amount}&currency=978&shop_id={shop_id}" \
-                            + f"&shop_order_id={data.get('shop_order_id')}&sign={data.get('sign')}"
+                                + f"&shop_order_id={data.get('shop_order_id')}&sign={data.get('sign')}"
             new_record = Payments(amount=amount, currency=currency, description=description,
-                              shop_order_id=data.get("shop_order_id"), sign=data.get("sign"), created=datetime.now())
+                                  shop_order_id=data.get("shop_order_id"), sign=data.get("sign"),
+                                  created=datetime.now())
             db.session.add(new_record)
             db.session.commit()
             return redirect(redirect_link)
