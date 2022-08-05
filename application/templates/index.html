@@ -32,9 +32,9 @@
             <div class="input-group mb-3">
                 <span class="input-group-text" id="inputGroup-sizing-default">Currency:</span>
                 <select class="form-select" aria-label="Default select example" name="currency">
-                    <option selected value="643">RUB</option>
-                    <option value="978">EUR</option>
-                    <option value="840">USD</option>
+                    {% for elem in currencies %}
+                    <option selected value={{elem.currency_value}}>{{elem.currency_name}}</option>
+                    {% endfor %}
                 </select>
             </div>
             <div class="input-group">

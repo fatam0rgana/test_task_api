@@ -6,12 +6,11 @@ ma = Marshmallow(app)
 
 
 class Currency(db.Model):
-    currency_id = db.Column(db.Integer, primary_key=True)
     currency_name = db.Column(db.String(4), nullable=False)
-    currency_value = db.Column(db.Integer, nullable=False)
+    currency_value = db.Column(db.Integer, nullable=False, primary_key=True)
 
     def __repr__(self):
-        return self.currency_id
+        return self.currency_value
 
 
 class DepartmentsSchema(ma.Schema):
