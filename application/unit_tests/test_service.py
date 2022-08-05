@@ -4,6 +4,9 @@ from application.service.data_handling import *
 
 
 def test_amount_validation():
+    """
+    Testing amount field validation
+    """
     assert validate_amount(1) == 1
     assert validate_amount(0) == 0
     assert validate_amount('qwe') == 0
@@ -11,6 +14,9 @@ def test_amount_validation():
 
 
 def test_currency_validation():
+    """
+    Testing currency field validation
+    """
     assert validate_currency('643') == 1
     assert validate_currency('840') == 1
     assert validate_currency('978') == 1
@@ -18,6 +24,9 @@ def test_currency_validation():
 
 
 def test_data_hashing():
+    """
+    Testing sign function
+    """
     assert data_to_hash({'q': '1', 'w': 2}, ('q'), 'secret') == \
                 {'q': '1', 'w': 2, 'sign': 'a4b9775cad7a19b8563ecf41994868f50ef75403a5942788b15410305be762be'}
     assert data_to_hash({}, (), 'secret') == \
