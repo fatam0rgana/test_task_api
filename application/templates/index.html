@@ -13,6 +13,11 @@
 </head>
 <body>
 <section>
+    {% for cat, msg in get_flashed_messages(with_categories=true) %}
+    <div class="alert {{cat}}" role="alert">
+    {{msg}}
+    </div>
+{% endfor %}
         <div class="container-xxl">
           <div class="row">
             <div class="col-8">
